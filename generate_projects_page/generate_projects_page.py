@@ -15,8 +15,8 @@ import yaml
 GIT_USER_NAME = "CC creativecommons.github.io Bot"
 GIT_USER_EMAIL = "cc-creativecommons-github-io-bot@creativecommons.org"
 
-GITHUB_USERNAME = "cc-creativecommons-github-io-bot"
-GITHUB_ORGANIZATION = "creativecommons"
+GITHUB_USERNAME = "sp35"
+GITHUB_ORGANIZATION = "sp35"
 GITHUB_REPO_NAME = "creativecommons.github.io-source"
 
 
@@ -154,6 +154,8 @@ def generate_json_file(repo_data_dict):
 def commit_and_push_changes(json_filename):
     repo = git.Repo(GIT_WORKING_DIRECTORY)
     git_diff = repo.index.diff(None)
+    g = git.Git(GIT_WORKING_DIRECTORY)
+    print(g.execute(["git", "remote", "show", "origin"]))
     if git_diff != []:
         repo.index.add(items=f"{json_filename}")
         repo.index.commit(message="Syncing new repository changes.")
@@ -168,9 +170,9 @@ if __name__ == "__main__":
     set_up_repo()
     set_up_git_user()
     github_client = set_up_github_client()
-    cc = get_cc_organization(github_client)
-    repos = get_repositories(cc)
-    repo_data_list = get_repo_data_list(repos)
-    repo_data_dict = get_repo_data_dict(repo_data_list)
-    json_filename = generate_json_file(repo_data_dict)
+    # cc = get_cc_organization(github_client)
+    # repos = get_repositories(cc)
+    # repo_data_list = get_repo_data_list(repos)
+    # repo_data_dict = get_repo_data_dict(repo_data_list)
+    json_filename = generate_json_file({'SuperNew': 'World'})
     commit_and_push_changes(json_filename)
